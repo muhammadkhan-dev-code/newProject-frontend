@@ -1,0 +1,18 @@
+//  state layer implemention 
+
+import React, { createContext, useState } from 'react'
+
+export const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  //   user as  a null
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(false)
+
+  return (
+    //  complete  access of value obj entire web app
+    <AuthContext.Provider value={(user, setUser, loading, setLoading)}>
+      {children}
+    </AuthContext.Provider>
+  )
+}

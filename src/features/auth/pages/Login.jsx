@@ -1,11 +1,25 @@
- import React from 'react'
- import { useNavigate } from 'react-router';
-const Login = () => {
-  const navigate = useNavigate();
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router'
+import { useAuth } from '../hooks/useAuth.js'
 
-  const handleSubmtit= (e)=>{
-    e.prventDefault(); 
-  }
+const Login = () => {
+  const navigate = useNavigate()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [ loading, handleLogin] = useAuth();
+
+
+  const handleSubmtit = e => {
+    e.prventDefault()
+    handleLogin({ email, password });}
+
+    if(loading){
+      return <div className='min-h-screen flex items-center justify-center bg-slate-900/70'>
+          <p className='text-lg text-slate-100'>Loading...</p>
+        </div>
+  
+      }
+    
   return (
     <div className='min-h-screen bg-linear-to-b from-slate-950 via-gray-950 to-zinc-950 px-4 py-10 sm:px-6 lg:px-8'>
       <div className='mx-auto my-10 w-full max-w-md rounded-2xl border border-cyan-900/40 bg-slate-900/70 p-6 shadow-[0_22px_60px_rgba(0,0,0,0.55)] backdrop-blur-md sm:p-8'>
@@ -28,6 +42,7 @@ const Login = () => {
               type='email'
               id='email'
               name='email'
+              onChange={e => setEmail(e.target.value)}
               placeholder='Enter your email'
               className='w-full rounded-lg border border-slate-700 bg-slate-800/90 px-4 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 outline-none ring-0 transition focus:border-cyan-300 focus:shadow-[0_0_0_3px_rgba(103,232,249,0.2)]'
             />
@@ -44,6 +59,7 @@ const Login = () => {
               type='password'
               id='password'
               name='password'
+              onChange={e => setPassword(e.target.value)}
               placeholder='Enter your password'
               className='w-full rounded-lg border border-slate-700 bg-slate-800/90 px-4 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 outline-none ring-0 transition focus:border-cyan-300 focus:shadow-[0_0_0_3px_rgba(103,232,249,0.2)]'
             />
@@ -59,17 +75,15 @@ const Login = () => {
 
         <div className='p-5 flex flex-col text-center'>
           <p className='text-md text-slate-400 '>
-          Don't have an account?{' '}
-         
-          <button
-            type='button'
-            className='text-cyan-500 hover:text-cyan-300 hover:cursor-pointer focus:outline-none focus:underline '
-            onClick={() => navigate('/register')}
-          >
-            Sign up
-          </button>
-          
-        </p>
+            Don't have an account?{' '}
+            <button
+              type='button'
+              className='text-cyan-500 hover:text-cyan-300 hover:cursor-pointer focus:outline-none focus:underline '
+              onClick={() => navigate('/register')}
+            >
+              Sign up
+            </button>
+          </p>
         </div>
       </div>
     </div>
