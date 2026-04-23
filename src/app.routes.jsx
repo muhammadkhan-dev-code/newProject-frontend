@@ -13,6 +13,7 @@ export const router = createBrowserRouter(
     <Route path='/' element={<App />}>
       <Route path='login' element={<Login />} />
       <Route path='register' element={<Register />} />
+      <Route path='/homePage' element={<h3>Home</h3>} />
     </Route>
   )
 )

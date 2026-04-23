@@ -2,9 +2,11 @@ import { useContext } from "react";
 import { AuthContext } from "../Auth.context.js";
 import { registerUser, loginUser, logoutUser } from "../services/auth.api.js";
 
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
   const { user, setUser, loading, setLoading } = context;
+  
 
   const handleLogin = async ({ email, password }) => {
     //  loading screen ko true krna hook layer ka kam and
