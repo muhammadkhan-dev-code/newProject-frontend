@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useAuth } from '../hooks/useAuth.js'
 
@@ -6,23 +6,22 @@ const Login = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [ loading, handleLogin] = useAuth();
+  const { loading, handleLogin } = useAuth()
 
-
-  const handleSubmtit = async(e) => {
+  const handleSubmtit = async e => {
     e.prventDefault()
-    await handleLogin({ email, password });
+    await handleLogin({ email, password })
     navigate('/homePage')
-  
   }
 
-    if(loading){
-      return <div className='min-h-screen flex items-center justify-center bg-slate-900/70'>
-          <p className='text-lg text-slate-100'>Loading...</p>
-        </div>
-  
-      }
-    
+  if (loading) {
+    return (
+      <div className='min-h-screen flex items-center justify-center bg-slate-900/70'>
+        <p className='text-lg text-slate-100'>Loading...</p>
+      </div>
+    )
+  }
+
   return (
     <div className='min-h-screen bg-linear-to-b from-slate-950 via-gray-950 to-zinc-950 px-4 py-10 sm:px-6 lg:px-8'>
       <div className='mx-auto my-10 w-full max-w-md rounded-2xl border border-cyan-900/40 bg-slate-900/70 p-6 shadow-[0_22px_60px_rgba(0,0,0,0.55)] backdrop-blur-md sm:p-8'>
